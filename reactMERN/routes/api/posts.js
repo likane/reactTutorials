@@ -1,9 +1,15 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
+const { check, validationResult } = require("express-validator/check");
+const auth = require("../../middleware/auth");
 
-// @route  GET api/users
-// @desc   Test Route
-// @access Public
-router.get('/', (reg, res) => res.send('post Route'));
+// @route  POST api/POSTS
+// @desc   create a post
+// @access Private
+router.post(
+  "/",
+  [auth, [check("text", "Text is required").not()]],
+  (req, res) => {}
+);
 
 module.exports = router;
