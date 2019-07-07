@@ -6,7 +6,7 @@ import { connect } from "tls";
 
 const EditProfile = ({profile: { profile, loading}, CreateProfile, getCurrentProfile, history}) => {
   const [formData, setFormData] = useState({
-    company
+    company: '',
     website: "",
     status: "",
     skills: "",
@@ -24,7 +24,21 @@ const EditProfile = ({profile: { profile, loading}, CreateProfile, getCurrentPro
   useEffect(() => {
       getCurrentProfile(),
 
-  });
+      setFormData({
+          company: loading || !profile.company ? '' : profile.company,
+          website: loading || !profile.website ? '' : profile.website,
+          location: loading || !profile.location ? '' : profile.location,
+          status: loading || !profile.status? '' : profile.status,
+          skills: loading || !profile.skills? '' : profile.skills.join(','),
+          githubusername: loading || !profile.githubusername? '' : profile.githubusername,
+          bio: loading || !profile.bio ? '': profile.social.bio,
+          twitter: loading || !profile.social ? '' : profile.social.twitter,
+          facebook: loading || !profile.social ? '' : profile.social.facebook,
+          linkedin: loading || !profile.social? '': profile.social.linkedin,
+          youtube: loading || !profile.social ? '' : profile.social.youtube,
+          instagram: loading || !profile.social ? '' : profile.instagram
+      });
+  } [loading]); //  when the page loads the useffect will run
 
   const {
     company,
@@ -44,7 +58,7 @@ const EditProfile = ({profile: { profile, loading}, CreateProfile, getCurrentPro
 
   const onsubmit = e => {
       e.preventDefault();
-      createProfile(formData, history);
+      createProfile(formData, history, true);
   }
   return ( <Fragment>
       <h1 className="large text-primary">
@@ -151,7 +165,7 @@ const EditProfile = ({profile: { profile, loading}, CreateProfile, getCurrentPro
 
        
         <input type="submit" className="btn btn-primary my-1" />
-        <a className="btn btn-light my-1" href="dashboard.html">Go Back</a>
+        <Link className="btn btn-light my-1" to="/dashboard">Go Back</Link>
       </form>
   </Fragment>;
   );
@@ -163,8 +177,8 @@ EditProfile.propTypes = {
     getCurrentProfile: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state = ({
+const mapStateToProps = state => ({
     profile: state.profile
-})
+});
 
 export default connect(mapStateToProps, {CreateProfile, getCurrentProfile}) (withRouter(EditProfile));
