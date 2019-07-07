@@ -1,10 +1,10 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 import{Link, withRouter } from 'react-router-dom';
 import PropTypes from "prop-types";
-import { CreateProfile, createProfile } from '../../actions/profile';
+import { CreateProfile, getCurrentProfile } from '../../actions/profile';
 import { connect } from "tls";
 
-const CreateProfile = ({ CreateProfile, history}) => {
+const EditProfile = ({profile: { profile, loading}, CreateProfile, getCurrentProfile, history}) => {
   const [formData, setFormData] = useState({
     company
     website: "",
@@ -20,6 +20,11 @@ const CreateProfile = ({ CreateProfile, history}) => {
   });
 
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
+
+  useEffect(() => {
+      getCurrentProfile(),
+
+  });
 
   const {
     company,
@@ -152,9 +157,14 @@ const CreateProfile = ({ CreateProfile, history}) => {
   );
 };
 
-CreateProfile.propTypes = {
-    CreateProfile: PropTypes.func.isRequired
+EditProfile.propTypes = {
+    EditProfile: PropTypes.func.isRequired,
+    profile: PropTypes.object.isRequired,
+    getCurrentProfile: PropTypes.func.isRequired
 };
 
+const mapStateToProps = state = ({
+    profile: state.profile
+})
 
-export default connect(null, {CreateProfile}) (withRouter(CreateProfile));
+export default connect(mapStateToProps, {CreateProfile, getCurrentProfile}) (withRouter(EditProfile));
