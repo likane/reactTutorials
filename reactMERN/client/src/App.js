@@ -11,6 +11,8 @@ import CreateProfile from "./components/profile-forms/CreateProfile";
 import EditProfile from "./components/profile-forms/EditProfile";
 import AddExperience from "./components/profile-forms/addExperience";
 import AddEducation from "./components/profile-forms/addEducation";
+import Profiles from "./components/profiles/Profiles";
+import Profile from "./components/profiles/Profile";
 // redux
 import { Provider } from "react-redux"; // will combine react and redux
 import store from "./store";
@@ -40,6 +42,8 @@ const App = () => {
           <switch>
             <Route exact path="/register" component={Register} />
             <Route exact path="/Login" component={Login} />
+            <Route exact path="/profiles" component={Profiles} />
+            <Route exact path="/profile/:id" component={Profile} />
             <PrivateRoute exact path="/dashboard" component={Dashboard} />
             <PrivateRoute
               exact

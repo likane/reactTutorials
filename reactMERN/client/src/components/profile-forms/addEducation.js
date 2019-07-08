@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { addEducation } from "../../actions/profile";
@@ -54,7 +54,7 @@ const addEducation = ({ addEducation, history}) => {
           <p><input type="checkbox" name="current" checked={current} value={current} onChange={e=>{
            setFormData({ ...formData, current: !current})
            toggleDisabled(!toDateDisabled);
-           }} />{" "} Current Job</p>
+           }} />{" "} Current School</p>
         </div>
         <div class="form-group">
           <h4>To Date</h4>
@@ -80,6 +80,6 @@ addEducation.propTypes = {
 export default connect(
   null,
   { addEducation }
-)(addEducation);
+)(withRouter(addEducation));
 //use null when not sending mapStateToProps
 // 2nd value is action

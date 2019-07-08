@@ -38,7 +38,7 @@ const EditProfile = ({profile: { profile, loading}, CreateProfile, getCurrentPro
           youtube: loading || !profile.social ? '' : profile.social.youtube,
           instagram: loading || !profile.social ? '' : profile.instagram
       });
-  } [loading]); //  when the page loads the useffect will run
+  }, [loading, getCurrentProfile]); //  when the page loads the useffect will run
 
   const {
     company,

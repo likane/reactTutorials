@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { addExperience } from "../../actions/profile";
@@ -81,6 +81,26 @@ addExperience.propTypes = {
 export default connect(
   null,
   { addExperience }
-)(addExperience);
+)(withRouter(addExperience));
 //use null when not sending mapStateToProps
 // 2nd value is action
+
+/* 1) actions
+	A. TYPES -> UPDATE_PROFILE
+	b. profile actions -> add experience method & add education method
+2) reducers
+	a. add type to top array of import
+	b. add case update profile
+3) components
+	profile components folder
+	a. add two component files: addExperience/addEducation
+	b. used racfp to set up boilerplate
+	c. update export default at bottom to include connect() and action
+	d. add mapstatetoprops and update propTypes to include proptypes
+	e. copy in html
+	f. include useState in import to use as hook
+	g. include useState to set state values
+	h. updated from to include on change and values
+	i. update 'props' value in addExperience method to props used
+	j. add onSubmit func to form tag on top
+4) added new components to app.js routes*/
